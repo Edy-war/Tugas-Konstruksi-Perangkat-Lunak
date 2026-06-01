@@ -1,28 +1,27 @@
-function proses_transaksi(j_barang, h_barang, status_member, kode_promo) {
-    let t = j_barang * h_barang;
+function hitungTransaksiKasir(jumlahBarang, hargaBarang, statusMember, kodePromo) {
+    let totalHarga = jumlahBarang * hargaBarang;
     
-    if (status_member == "VIP") {
+    if (statusMember == "VIP") {
         console.log("Mendapat diskon member VIP 10%");
-        t = t - (t * 0.1);
-    } else if (status_member == "Gold") {
+        totalHarga = totalHarga - (totalHarga * 0.1);
+    } else if (statusMember == "Gold") {
         console.log("Mendapat diskon member Gold 5%");
-        t = t - (t * 0.05);
+        totalHarga = totalHarga - (totalHarga * 0.05);
     }
 
-
-    if (kode_promo == "PROMO20") {
+    if (kodePromo == "PROMO20") {
         console.log("Potongan promo sebesar 20000");
-        t = t - 20000;
-    } else if (kode_promo == "HEMAT10") {
+        totalHarga = totalHarga - 20000;
+    } else if (kodePromo == "HEMAT10") {
         console.log("Potongan promo sebesar 10000");
-        t = t - 10000;
+        totalHarga = totalHarga - 10000;
     }
 
-    let pajak = t * 0.11;
-    t = t + pajak;
+    let pajak = totalHarga * 0.11;
+    totalHarga = totalHarga + pajak;
 
-    console.log("Total yang harus dibayar: " + t);
-    return t;
+    console.log("Total yang harus dibayar: " + totalHarga);
+    return totalHarga;
 }
 
-proses_transaksi(5, 50000, "VIP", "PROMO20");
+hitungTransaksiKasir(5, 50000, "VIP", "PROMO20");
