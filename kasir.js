@@ -1,27 +1,28 @@
+const PAJAK_RATE = 0.11;
+
+function hitungDiskonMember(totalHarga, statusMember) {
+    if (statusMember === "VIP") return totalHarga * 0.1;
+    if (statusMember === "Gold") return totalHarga * 0.05;
+    return 0;
+}
+
+function hitungPotonganPromo(kodePromo) {
+    if (kodePromo === "PROMO20") return 20000;
+    if (kodePromo === "HEMAT10") return 10000;
+    return 0;
+}
+
 function hitungTransaksiKasir(jumlahBarang, hargaBarang, statusMember, kodePromo) {
     let totalHarga = jumlahBarang * hargaBarang;
     
-    if (statusMember == "VIP") {
-        console.log("Mendapat diskon member VIP 10%");
-        totalHarga = totalHarga - (totalHarga * 0.1);
-    } else if (statusMember == "Gold") {
-        console.log("Mendapat diskon member Gold 5%");
-        totalHarga = totalHarga - (totalHarga * 0.05);
-    }
+    totalHarga -= hitungDiskonMember(totalHarga, statusMember);
+    totalHarga -= hitungPotonganPromo(kodePromo);
+    
+    const totalPajak = totalHarga * PAJAK_RATE;
+    const totalAkhir = totalHarga + totalPajak;
 
-    if (kodePromo == "PROMO20") {
-        console.log("Potongan promo sebesar 20000");
-        totalHarga = totalHarga - 20000;
-    } else if (kodePromo == "HEMAT10") {
-        console.log("Potongan promo sebesar 10000");
-        totalHarga = totalHarga - 10000;
-    }
-
-    let pajak = totalHarga * 0.11;
-    totalHarga = totalHarga + pajak;
-
-    console.log("Total yang harus dibayar: " + totalHarga);
-    return totalHarga;
+    console.log("Total yang harus dibayar: " + totalAkhir);
+    return totalAkhir;
 }
 
 hitungTransaksiKasir(5, 50000, "VIP", "PROMO20");
